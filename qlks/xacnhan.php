@@ -1,0 +1,40 @@
+<?php  $user=$_SESSION['user'];
+//$pid=	$_SESSION['pd'];
+$user_id =$user['kh_id'];
+$id ="";
+$p_id= $_POST['id'];
+$ngaytao = date("Y-m-d H:i:s"); 
+$name = $_POST['ten'];
+$sdt = $_POST['sdt'];
+$checkin = $_POST['checkin'];
+$checkout = $_POST['checkout'];
+$nguoilon = $_POST['nguoilon'];
+//$nguoilon =(int)$nguoilon;
+//$nguoilon=2;
+$treem = $_POST['treem'];
+$gia = $_POST['gia'];
+$succhua = $_POST['succhua'];
+$thanhtoan = $_POST['thanhtoan'];
+$trangthai = 1;
+$ngayden =  strtotime($checkin);
+$ngaydi = strtotime($checkout);
+$newDate = date("Y-m-d", strtotime($checkin));
+$newDate2 = date("Y-m-d", strtotime($checkout));
+$ngayden2 = date("d-m-Y", strtotime($checkin));
+$ngaydi2 = date("d-m-Y", strtotime($checkout));
+$giatri = abs($ngayden - $ngaydi);
+$ngayo=floor($giatri / (60*60*24));
+//$nldu=($nguoilon -$succhua);
+//$tedu =($treem -1);
+
+//layyy
+$phuthu=($nguoilon - $succhua)*100000 + (($treem-1)*50000);
+$tongtien =$phuthu+ ($ngayo * $gia);
+  $sql = "INSERT INTO phieudatphong(pdp_id,kh_id,p_id,pdp_ngaytao,pdp_ngayden,pdp_ngaydi,pdp_gia) VALUES ('$id','$user_id','$p_id',NOW(),'$newDate','$newDate2','$tongtien')";
+mysqli_query($conn,$sql);
+$sl = "INSERT INTO chitietphieudatphong(pdp_id,ctp_nguoilon,ctp_treem,ctp_thanhtoan,ctp_trangthai) VALUES (@@identity,'$nguoilon','$treem','$thanhtoan','$trangthai')";
+mysqli_query($conn,$sl);
+$s="UPDATE phong SET p_trangthai='1' where p_id = $p_id";
+mysqli_query($conn,$s); 
+header('location:index.php');
+?> 

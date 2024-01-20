@@ -1,0 +1,4 @@
+CSDL: qlks
+Tài khoản admin: admin-admin
+Tài khoản nhân viên: nv1-111
+Tài khoản khách hàng: ngaa-huynhnga
